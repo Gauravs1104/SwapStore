@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
+    />
+    <link rel="stylesheet" href="style.css" />
+    <title>Register - SwapStore</title>
+    <style>
+      .auth-container {
+        max-width: 60rem;
+        margin: 5rem auto;
+        padding: 4rem;
+        background: var(--backgroundSecondary);
+        border-radius: 1rem;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+      }
+      .auth-form {
+        display: flex;
+        flex-direction: column;
+        gap: 2rem;
+      }
+      .form-group {
+        display: flex;
+        flex-direction: column;
+        gap: 0.5rem;
+      }
+      .form-group label {
+        font-weight: 600;
+        font-size: 1.6rem;
+      }
+      .form-group input {
+        padding: 1.2rem;
+        border: 1px solid var(--borderColor);
+        border-radius: 0.5rem;
+        font-size: 1.6rem;
+      }
+      .auth-btn {
+        padding: 1.5rem;
+        background-color: var(--buttonColor);
+        color: white;
+        border: none;
+        border-radius: 0.5rem;
+        font-size: 1.8rem;
+        cursor: pointer;
+        transition: background-color 0.3s;
+      }
+      .auth-btn:hover {
+        background-color: var(--main-color);
+      }
+      .auth-link {
+        text-align: center;
+        margin-top: 2rem;
+        font-size: 1.6rem;
+      }
+      .grid-address {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 2rem;
+      }
+      .full-width {
+        grid-column: span 2;
+      }
+    </style>
+  </head>
+  <body>
+    <!-- Navbar (simplified for auth pages) -->
+    <header class="section-navbar">
+      <div class="container" style="padding: 2rem 2.4rem;">
+        <div class="navbar-brand">
+          <a href="index.html">
+            <img src="/images/swap-store-high-resolution-logo-transparent.png" alt="logo" class="logo" width="80px" />
+          </a>
+        </div>
+      </div>
+    </header>
+
+    <main class="container">
+      <div class="auth-container">
+        <h2 class="section-common--heading" style="text-align: center; margin-bottom: 3rem;">Create Account</h2>
+        <form id="registerForm" class="auth-form">
+          <div class="form-group">
+            <label for="name">Full Name</label>
+            <input type="text" id="name" placeholder="John Doe" required />
+          </div>
+          <div class="form-group">
+            <label for="email">Email Address</label>
+            <input type="email" id="email" placeholder="example@email.com" required />
+          </div>
+          <div class="form-group">
+            <label for="phone">Phone Number</label>
+            <input type="tel" id="phone" placeholder="+91 1234567890" required />
+          </div>
+          <div class="form-group">
+            <label for="password">Password</label>
+            <div style="position: relative;">
+              <input type="password" id="password" placeholder="********" required style="width: 100%;" />
+              <i class="fa-solid fa-eye" id="togglePassword" style="position: absolute; right: 1.5rem; top: 50%; transform: translateY(-50%); cursor: pointer; font-size: 1.6rem; color: #666;"></i>
+            </div>
+          </div>
+          
+          <h3 style="font-size: 2rem; margin-top: 1rem;">Shipping Address</h3>
+          <div class="grid-address">
+            <div class="form-group full-width">
+              <label for="street">Street Address</label>
+              <input type="text" id="street" placeholder="123 Main St" required />
+            </div>
+            <div class="form-group">
+              <label for="city">City</label>
+              <input type="text" id="city" placeholder="City" required />
+            </div>
+            <div class="form-group">
+              <label for="state">State</label>
+              <input type="text" id="state" placeholder="State" required />
+            </div>
+            <div class="form-group">
+              <label for="zip">Zip Code</label>
+              <input type="text" id="zip" placeholder="123456" required />
+            </div>
+            <div class="form-group">
+              <label for="country">Country</label>
+              <input type="text" id="country" placeholder="Country" required />
+            </div>
+          </div>
+
+          <button type="submit" class="auth-btn">Register</button>
+        </form>
+        <div class="auth-link">
+          Already have an account? <a href="login.html">Login Here</a>
+        </div>
+      </div>
+    </main>
+
+    <script type="module" src="register.js"></script>
+  </body>
+</html>

@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
+    />
+    <link rel="stylesheet" href="style.css" />
+    <title>Login - SwapStore</title>
+    <!-- Google Identity Services Library -->
+    <script src="https://accounts.google.com/gsi/client" async defer></script>
+    <style>
+      .auth-container {
+        max-width: 50rem;
+        margin: 5rem auto;
+        padding: 4rem;
+        background: var(--backgroundSecondary);
+        border-radius: 1rem;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+      }
+      .auth-form {
+        display: flex;
+        flex-direction: column;
+        gap: 2rem;
+      }
+      .form-group {
+        display: flex;
+        flex-direction: column;
+        gap: 0.5rem;
+      }
+      .form-group label {
+        font-weight: 600;
+        font-size: 1.6rem;
+      }
+      .form-group input {
+        padding: 1.2rem;
+        border: 1px solid var(--borderColor);
+        border-radius: 0.5rem;
+        font-size: 1.6rem;
+      }
+      .auth-btn {
+        padding: 1.5rem;
+        background-color: var(--buttonColor);
+        color: white;
+        border: none;
+        border-radius: 0.5rem;
+        font-size: 1.8rem;
+        cursor: pointer;
+        transition: background-color 0.3s;
+      }
+      .auth-btn:hover {
+        background-color: var(--main-color);
+      }
+      .divider {
+        display: flex;
+        align-items: center;
+        text-align: center;
+        margin: 2rem 0;
+        font-size: 1.4rem;
+        color: #666;
+      }
+      .divider::before, .divider::after {
+        content: '';
+        flex: 1;
+        border-bottom: 1px solid var(--borderColor);
+      }
+      .divider:not(:empty)::before { margin-right: 1em; }
+      .divider:not(:empty)::after { margin-left: 1em; }
+
+      .google-btn-container {
+        display: flex;
+        justify-content: center;
+        margin-top: 2rem;
+      }
+      .auth-link {
+        text-align: center;
+        margin-top: 2rem;
+        font-size: 1.6rem;
+      }
+    </style>
+  </head>
+  <body>
+    <!-- Navbar -->
+    <header class="section-navbar">
+      <div class="container" style="padding: 2rem 2.4rem;">
+        <div class="navbar-brand">
+          <a href="index.html">
+            <img src="/images/swap-store-high-resolution-logo-transparent.png" alt="logo" class="logo" width="80px" />
+          </a>
+        </div>
+      </div>
+    </header>
+
+    <main class="container">
+      <div class="auth-container">
+        <h2 class="section-common--heading" style="text-align: center; margin-bottom: 3rem;">Welcome Back!</h2>
+        <form id="loginForm" class="auth-form">
+          <div class="form-group">
+            <label for="email">Email Address</label>
+            <input type="email" id="email" placeholder="example@email.com" required />
+          </div>
+          <div class="form-group">
+            <label for="password">Password</label>
+            <div style="position: relative;">
+              <input type="password" id="password" placeholder="********" required style="width: 100%;" />
+              <i class="fa-solid fa-eye" id="togglePassword" style="position: absolute; right: 1.5rem; top: 50%; transform: translateY(-50%); cursor: pointer; font-size: 1.6rem; color: #666;"></i>
+            </div>
+          </div>
+          <button type="submit" class="auth-btn">Login</button>
+        </form>
+
+        <div class="divider">OR</div>
+
+        <!-- Google One Tap / Button Container -->
+        <div id="g_id_onload"
+             data-client_id="254476596181-vcmmut509vtiq4pc86if1tvahpd286iu.apps.googleusercontent.com"
+             data-context="signin"
+             data-ux_mode="popup"
+             data-callback="handleGoogleLogin"
+             data-auto_prompt="false">
+        </div>
+        <div class="google-btn-container">
+          <div class="g_id_signin"
+               data-type="standard"
+               data-shape="rectangular"
+               data-theme="outline"
+               data-text="signin_with"
+               data-size="large"
+               data-logo_alignment="left">
+          </div>
+        </div>
+
+        <div class="auth-link">
+          Don't have an account? <a href="register.html">Register Here</a>
+        </div>
+      </div>
+    </main>
+
+    <script type="module" src="login.js"></script>
+    <script>
+      // This needs to be available globally for Google callback
+      window.handleGoogleLogin = (response) => {
+        // We'll handle this in login.js by exposing it or using an event
+        const event = new CustomEvent('google-login', { detail: response });
+        window.dispatchEvent(event);
+      };
+    </script>
+  </body>
+</html>
