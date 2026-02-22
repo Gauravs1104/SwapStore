@@ -53,12 +53,20 @@ app.use((req, res, next) => {
 let isConnected = false;
 const connectDB = async () => {
   if (isConnected) return;
+  
+  if (!process.env.MONGODB_URI) {
+    throw new Error('MONGODB_URI is not defined in environment variables');
+  }
+
   try {
-    await mongoose.connect(process.env.MONGODB_URI);
-    isConnected = true;
+    const db = await mongoose.connect(process.env.MONGODB_URI, {
+      serverSelectionTimeoutMS: 5000, // Timeout after 5s instead of default 30s
+    });
+    isConnected = db.connections[0].readyState;
     console.log('Connected to MongoDB');
   } catch (err) {
     console.error('Error connecting to MongoDB:', err.message);
+    throw err; // Re-throw to be caught by the middleware
   }
 };
 
@@ -69,12 +77,21 @@ if (process.env.NODE_ENV !== 'production' && !process.env.VERCEL) {
     app.listen(PORT, () => {
       console.log(`Server running on port ${PORT}`);
     });
+  }).catch(err => {
+    console.error('Failed to start server due to DB connection error');
   });
 } else {
   // On Vercel, we connect to DB on each request or use a middleware
   app.use(async (req, res, next) => {
-    await connectDB();
-    next();
+    try {
+      await connectDB();
+      next();
+    } catch (err) {
+      res.status(500).json({ 
+        message: 'Database connection failed', 
+        error: err.message 
+      });
+    }
   });
 }
 
