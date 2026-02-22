@@ -36,19 +36,6 @@ app.use(cors({
 }));
 app.use(express.json());
 
-// Routes
-app.use('/api/auth', authRoutes);
-app.use('/api/contact', contactRoutes);
-
-// Catch-all JSON 404
-app.use((req, res, next) => {
-  if (req.originalUrl.startsWith('/api')) {
-    res.status(404).json({ message: `Route ${req.originalUrl} not found on this server` });
-  } else {
-    next();
-  }
-});
-
 // Database Connection
 let isConnected = false;
 const connectDB = async () => {
@@ -60,18 +47,45 @@ const connectDB = async () => {
 
   try {
     const db = await mongoose.connect(process.env.MONGODB_URI, {
-      serverSelectionTimeoutMS: 5000, // Timeout after 5s instead of default 30s
+      serverSelectionTimeoutMS: 5000, 
+      bufferCommands: false, // Disable buffering so we get errors immediately
     });
     isConnected = db.connections[0].readyState;
     console.log('Connected to MongoDB');
   } catch (err) {
     console.error('Error connecting to MongoDB:', err.message);
-    throw err; // Re-throw to be caught by the middleware
+    throw err; 
   }
 };
 
-// Vercel handles serverless functions differently.
-// For standard node environments, we listen on the port.
+// Vercel middleware should be BEFORE routes
+app.use(async (req, res, next) => {
+  if (req.originalUrl.startsWith('/api')) {
+    try {
+      await connectDB();
+      next();
+    } catch (err) {
+      return res.status(500).json({ 
+        message: 'Database connection failed', 
+        error: err.message 
+      });
+    }
+  } else {
+    next();
+  }
+});
+
+// Routes
+app.use('/api/auth', authRoutes);
+app.use('/api/contact', contactRoutes);
+
+// Catch-all JSON 404
+app.use((req, res) => {
+  if (req.originalUrl.startsWith('/api')) {
+    res.status(404).json({ message: `Route ${req.originalUrl} not found on this server` });
+  }
+});
+
 if (process.env.NODE_ENV !== 'production' && !process.env.VERCEL) {
   connectDB().then(() => {
     app.listen(PORT, () => {
@@ -79,19 +93,6 @@ if (process.env.NODE_ENV !== 'production' && !process.env.VERCEL) {
     });
   }).catch(err => {
     console.error('Failed to start server due to DB connection error');
-  });
-} else {
-  // On Vercel, we connect to DB on each request or use a middleware
-  app.use(async (req, res, next) => {
-    try {
-      await connectDB();
-      next();
-    } catch (err) {
-      res.status(500).json({ 
-        message: 'Database connection failed', 
-        error: err.message 
-      });
-    }
   });
 }
 
