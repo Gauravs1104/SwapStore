@@ -2,6 +2,7 @@ const CONTACT_API_URL = '/api/contact';
 
 const handleContactSubmit = async (e) => {
   e.preventDefault();
+  console.log("Form submission started");
   
   const name = document.getElementById('username').value;
   const email = document.getElementById('email').value;
@@ -38,11 +39,9 @@ const handleContactSubmit = async (e) => {
   }
 };
 
-document.addEventListener('DOMContentLoaded', () => {
-  const form = document.getElementById('contactForm');
-  if (form) {
-    form.addEventListener('submit', handleContactSubmit);
-  } else {
-    console.error('Contact form not found');
-  }
-});
+const form = document.getElementById('contactForm');
+if (form) {
+  form.addEventListener('submit', handleContactSubmit);
+} else {
+  console.error('Contact form not found on this page');
+}
