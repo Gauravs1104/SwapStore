@@ -46,6 +46,9 @@ document.addEventListener('DOMContentLoaded', async () => {
     const userData = await response.json();
     displayProfile(userData);
 
+    // Initialize Modal and Form with user data
+    setupEditModal(userData);
+
     // Add Logout Button listener
     document.getElementById('profileLogoutBtn')?.addEventListener('click', (e) => {
       e.preventDefault();
@@ -61,6 +64,88 @@ document.addEventListener('DOMContentLoaded', async () => {
     showToast('Profile Error: ' + error.message, 'error');
   }
 });
+
+function setupEditModal(user) {
+  const modal = document.getElementById('editProfileModal');
+  const editBtn = document.getElementById('editProfileBtn');
+  const closeBtn = document.getElementById('closeModal');
+  const form = document.getElementById('editProfileForm');
+
+  editBtn.onclick = () => {
+    modal.style.display = 'flex';
+    // Pre-fill form
+    document.getElementById('editName').value = user.name || '';
+    document.getElementById('editPhone').value = user.phone || '';
+    document.getElementById('editPic').value = user.profilePic || '';
+    if (user.address) {
+      document.getElementById('editStreet').value = user.address.street || '';
+      document.getElementById('editCity').value = user.address.city || '';
+      document.getElementById('editState').value = user.address.state || '';
+      document.getElementById('editZip').value = user.address.zip || '';
+      document.getElementById('editCountry').value = user.address.country || '';
+    }
+  };
+
+  closeBtn.onclick = () => {
+    modal.style.display = 'none';
+  };
+
+  window.onclick = (event) => {
+    if (event.target == modal) {
+      modal.style.display = 'none';
+    }
+  };
+
+  form.onsubmit = async (e) => {
+    e.preventDefault();
+    const token = localStorage.getItem('token');
+    
+    const updatedData = {
+      name: document.getElementById('editName').value,
+      phone: document.getElementById('editPhone').value,
+      profilePic: document.getElementById('editPic').value,
+      address: {
+        street: document.getElementById('editStreet').value,
+        city: document.getElementById('editCity').value,
+        state: document.getElementById('editState').value,
+        zip: document.getElementById('editZip').value,
+        country: document.getElementById('editCountry').value,
+      }
+    };
+
+    try {
+      const response = await fetch(PROFILE_API_URL, {
+        method: 'PUT',
+        headers: {
+          'Authorization': `Bearer ${token}`,
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(updatedData),
+      });
+
+      if (!response.ok) {
+        const errorData = await response.json();
+        throw new Error(errorData.message || 'Failed to update profile');
+      }
+
+      const newUser = await response.json();
+      showToast('Profile updated successfully!');
+      modal.style.display = 'none';
+      
+      // Refresh the page data
+      displayProfile(newUser);
+      // Update the local storage user object too
+      localStorage.setItem('user', JSON.stringify({
+        id: newUser._id,
+        name: newUser.name,
+        email: newUser.email,
+        role: newUser.role
+      }));
+    } catch (err) {
+      showToast('Update failed: ' + err.message, 'error');
+    }
+  };
+}
 
 function displayProfile(user) {
   // Update header

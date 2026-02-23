@@ -209,7 +209,72 @@
           </div>
           <h2 id="userNameHeader">Loading...</h2>
           <p id="userEmailHeader">Loading...</p>
+          <button id="editProfileBtn" class="edit-btn" style="margin-top: 1.5rem; padding: 1rem 3rem; background: var(--supporting-color); color: var(--main-color); border: none; border-radius: 1rem; font-weight: 700; cursor: pointer; transition: all 0.3s ease;">
+            <i class="fa-solid fa-pen-to-square"></i> Edit Profile
+          </button>
         </div>
+
+        <!-- Edit Profile Modal -->
+        <div id="editProfileModal" style="display: none; position: fixed; z-index: 2000; left: 0; top: 0; width: 100%; height: 100%; overflow: auto; background-color: rgba(0,0,0,0.5); backdrop-filter: blur(5px); align-items: center; justify-content: center;">
+          <div style="background-color: #fefefe; padding: 4rem; border-radius: 2.5rem; width: 90%; max-width: 70rem; box-shadow: 0 25px 50px rgba(0,0,0,0.15); animation: modalIn 0.3s ease-out;">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 3rem;">
+              <h2 style="font-size: 2.8rem; font-weight: 800; color: var(--buttonColor);">Edit Your Profile</h2>
+              <span id="closeModal" style="color: #aaa; font-size: 3rem; font-weight: bold; cursor: pointer;">&times;</span>
+            </div>
+            
+            <form id="editProfileForm" style="display: grid; grid-template-columns: 1fr 1fr; gap: 2rem;">
+              <div class="form-group full-width">
+                <label style="font-size: 1.4rem; font-weight: 700; color: #666; margin-bottom: 0.5rem; display: block;">Full Name</label>
+                <input type="text" id="editName" style="width: 100%; padding: 1.2rem; border-radius: 1rem; border: 2px solid #edf2f7; font-size: 1.6rem;" required />
+              </div>
+              <div class="form-group">
+                <label style="font-size: 1.4rem; font-weight: 700; color: #666; margin-bottom: 0.5rem; display: block;">Phone Number</label>
+                <input type="tel" id="editPhone" style="width: 100%; padding: 1.2rem; border-radius: 1rem; border: 2px solid #edf2f7; font-size: 1.6rem;" />
+              </div>
+              <div class="form-group">
+                <label style="font-size: 1.4rem; font-weight: 700; color: #666; margin-bottom: 0.5rem; display: block;">Profile Pic URL</label>
+                <input type="text" id="editPic" style="width: 100%; padding: 1.2rem; border-radius: 1rem; border: 2px solid #edf2f7; font-size: 1.6rem;" placeholder="https://image-url.com" />
+              </div>
+              
+              <div class="section-title full-width">Shipping Address</div>
+              
+              <div class="form-group full-width">
+                <label style="font-size: 1.4rem; font-weight: 700; color: #666; margin-bottom: 0.5rem; display: block;">Street</label>
+                <input type="text" id="editStreet" style="width: 100%; padding: 1.2rem; border-radius: 1rem; border: 2px solid #edf2f7; font-size: 1.6rem;" />
+              </div>
+              <div class="form-group">
+                <label style="font-size: 1.4rem; font-weight: 700; color: #666; margin-bottom: 0.5rem; display: block;">City</label>
+                <input type="text" id="editCity" style="width: 100%; padding: 1.2rem; border-radius: 1rem; border: 2px solid #edf2f7; font-size: 1.6rem;" />
+              </div>
+              <div class="form-group">
+                <label style="font-size: 1.4rem; font-weight: 700; color: #666; margin-bottom: 0.5rem; display: block;">State</label>
+                <input type="text" id="editState" style="width: 100%; padding: 1.2rem; border-radius: 1rem; border: 2px solid #edf2f7; font-size: 1.6rem;" />
+              </div>
+              <div class="form-group">
+                <label style="font-size: 1.4rem; font-weight: 700; color: #666; margin-bottom: 0.5rem; display: block;">Zip Code</label>
+                <input type="text" id="editZip" style="width: 100%; padding: 1.2rem; border-radius: 1rem; border: 2px solid #edf2f7; font-size: 1.6rem;" />
+              </div>
+              <div class="form-group">
+                <label style="font-size: 1.4rem; font-weight: 700; color: #666; margin-bottom: 0.5rem; display: block;">Country</label>
+                <input type="text" id="editCountry" style="width: 100%; padding: 1.2rem; border-radius: 1rem; border: 2px solid #edf2f7; font-size: 1.6rem;" />
+              </div>
+              
+              <button type="submit" class="auth-btn full-width" style="margin-top: 2rem;">Save Changes</button>
+            </form>
+          </div>
+        </div>
+
+        <style>
+          @keyframes modalIn {
+            from { opacity: 0; transform: translateY(-30px); }
+            to { opacity: 1; transform: translateY(0); }
+          }
+          #editProfileBtn:hover {
+            background: var(--main-color);
+            color: white;
+            transform: translateY(-2px);
+          }
+        </style>
 
         <div class="profile-body">
           <div class="info-grid">

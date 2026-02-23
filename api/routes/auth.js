@@ -148,4 +148,35 @@ router.get('/profile', authMiddleware, async (req, res) => {
   }
 });
 
+// Update User Profile
+router.put('/profile', authMiddleware, async (req, res) => {
+  try {
+    const { name, phone, address, profilePic } = req.body;
+    
+    const user = await User.findById(req.user.userId);
+    if (!user) {
+      return res.status(404).json({ message: 'User not found' });
+    }
+
+    if (name) user.name = name;
+    if (phone) user.phone = phone;
+    if (profilePic) user.profilePic = profilePic;
+    
+    if (address) {
+      user.address = {
+        ...user.address,
+        ...address
+      };
+    }
+
+    await user.save();
+    
+    const updatedUser = await User.findById(req.user.userId).select('-password');
+    res.json(updatedUser);
+  } catch (err) {
+    console.error('Update Profile Error:', err);
+    res.status(500).json({ message: 'Failed to update profile: ' + err.message });
+  }
+});
+
 export default router;
