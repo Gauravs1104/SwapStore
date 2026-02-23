@@ -19,6 +19,11 @@ document.getElementById('registerForm').addEventListener('submit', async (e) => 
   const phoneCode = document.getElementById('countryCode').value;
   const phoneNumber = document.getElementById('phone').value;
 
+  if (!phoneCode) {
+    showToast('Please select a country code.', 'error');
+    return;
+  }
+
   const formData = {
     name: document.getElementById('name').value,
     email: document.getElementById('email').value,
