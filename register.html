@@ -10,126 +10,212 @@
     <link rel="stylesheet" href="style.css" />
     <title>Register - SwapStore</title>
     <style>
+      body {
+        background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+        min-height: 100vh;
+        display: flex;
+        flex-direction: column;
+      }
+      .auth-section {
+        flex: 1;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 4rem 2rem;
+      }
       .auth-container {
-        max-width: 60rem;
-        margin: 5rem auto;
+        max-width: 65rem;
+        width: 100%;
         padding: 4rem;
-        background: var(--backgroundSecondary);
-        border-radius: 1rem;
-        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        background: #ffffff;
+        border-radius: 2rem;
+        box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
+      }
+      .auth-header {
+        text-align: center;
+        margin-bottom: 3.5rem;
+      }
+      .auth-header h2 {
+        font-size: 3.2rem;
+        color: var(--buttonColor);
+        margin-bottom: 1rem;
+        font-weight: 800;
+      }
+      .auth-header p {
+        font-size: 1.6rem;
+        color: #666;
       }
       .auth-form {
         display: flex;
         flex-direction: column;
         gap: 2rem;
       }
-      .form-group {
-        display: flex;
-        flex-direction: column;
-        gap: 0.5rem;
-      }
-      .form-group label {
-        font-weight: 600;
-        font-size: 1.6rem;
-      }
-      .form-group input {
-        padding: 1.2rem;
-        border: 1px solid var(--borderColor);
-        border-radius: 0.5rem;
-        font-size: 1.6rem;
-      }
-      .auth-btn {
-        padding: 1.5rem;
-        background-color: var(--buttonColor);
-        color: white;
-        border: none;
-        border-radius: 0.5rem;
-        font-size: 1.8rem;
-        cursor: pointer;
-        transition: background-color 0.3s;
-      }
-      .auth-btn:hover {
-        background-color: var(--main-color);
-      }
-      .auth-link {
-        text-align: center;
-        margin-top: 2rem;
-        font-size: 1.6rem;
-      }
-      .grid-address {
+      .form-grid {
         display: grid;
         grid-template-columns: 1fr 1fr;
         gap: 2rem;
       }
-      .full-width {
+      .form-group {
+        display: flex;
+        flex-direction: column;
+        gap: 0.8rem;
+        position: relative;
+      }
+      .form-group.full-width {
         grid-column: span 2;
+      }
+      .form-group label {
+        font-weight: 600;
+        font-size: 1.5rem;
+        color: var(--buttonColor);
+      }
+      .form-group input {
+        padding: 1.4rem 1.6rem;
+        border: 2px solid #edf2f7;
+        border-radius: 1.2rem;
+        font-size: 1.6rem;
+        transition: all 0.3s ease;
+        background: #f8fafc;
+      }
+      .form-group input:focus {
+        border-color: var(--main-color);
+        background: #fff;
+        outline: none;
+        box-shadow: 0 0 0 4px rgba(83, 91, 242, 0.1);
+      }
+      .password-toggle {
+        position: absolute;
+        right: 1.6rem;
+        top: 4.2rem;
+        cursor: pointer;
+        color: #a0aec0;
+        font-size: 1.8rem;
+        transition: color 0.3s;
+      }
+      .password-toggle:hover {
+        color: var(--main-color);
+      }
+      .address-title {
+        grid-column: span 2;
+        font-size: 2rem;
+        font-weight: 700;
+        color: var(--buttonColor);
+        margin-top: 1rem;
+        padding-bottom: 0.5rem;
+        border-bottom: 2px solid #edf2f7;
+      }
+      .auth-btn {
+        width: 100%;
+        padding: 1.6rem;
+        background: var(--main-color);
+        color: white;
+        border: none;
+        border-radius: 1.2rem;
+        font-size: 1.8rem;
+        font-weight: 700;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        margin-top: 2rem;
+        box-shadow: 0 4px 6px rgba(83, 91, 242, 0.2);
+      }
+      .auth-btn:hover {
+        background: #4349d8;
+        transform: translateY(-2px);
+        box-shadow: 0 7px 14px rgba(83, 91, 242, 0.3);
+      }
+      .auth-link {
+        text-align: center;
+        margin-top: 3rem;
+        font-size: 1.6rem;
+        color: #666;
+      }
+      .auth-link a {
+        color: var(--main-color);
+        font-weight: 700;
+        text-decoration: none;
+      }
+      .auth-link a:hover {
+        text-decoration: underline;
+      }
+      @media (max-width: 600px) {
+        .form-grid {
+          grid-template-columns: 1fr;
+        }
+        .form-group.full-width {
+          grid-column: span 1;
+        }
+        .address-title {
+          grid-column: span 1;
+        }
       }
     </style>
   </head>
   <body>
-    <!-- Navbar (simplified for auth pages) -->
-    <header class="section-navbar">
-      <div class="container" style="padding: 2rem 2.4rem;">
+    <!-- Navbar -->
+    <header class="section-navbar" style="background: white; padding: 1.5rem 0; box-shadow: 0 2px 10px rgba(0,0,0,0.05);">
+      <div class="container" style="padding: 0 2.4rem;">
         <div class="navbar-brand">
           <a href="index.html">
-            <img src="/images/swap-store-high-resolution-logo-transparent.png" alt="logo" class="logo" width="80px" />
+            <img src="/images/swap-store-high-resolution-logo-transparent.png" alt="logo" class="logo" width="100px" />
           </a>
         </div>
       </div>
     </header>
 
-    <main class="container">
+    <main class="auth-section">
       <div class="auth-container">
-        <h2 class="section-common--heading" style="text-align: center; margin-bottom: 3rem;">Create Account</h2>
+        <div class="auth-header">
+          <h2>Create Your Account</h2>
+          <p>Join SwapStore for a premium shopping experience.</p>
+        </div>
         <form id="registerForm" class="auth-form">
-          <div class="form-group">
-            <label for="name">Full Name</label>
-            <input type="text" id="name" placeholder="John Doe" required />
-          </div>
-          <div class="form-group">
-            <label for="email">Email Address</label>
-            <input type="email" id="email" placeholder="example@email.com" required />
-          </div>
-          <div class="form-group">
-            <label for="phone">Phone Number</label>
-            <input type="tel" id="phone" placeholder="+91 1234567890" required />
-          </div>
-          <div class="form-group">
-            <label for="password">Password</label>
-            <div style="position: relative;">
-              <input type="password" id="password" placeholder="********" required style="width: 100%;" />
-              <i class="fa-solid fa-eye" id="togglePassword" style="position: absolute; right: 1.5rem; top: 50%; transform: translateY(-50%); cursor: pointer; font-size: 1.6rem; color: #666;"></i>
+          <div class="form-grid">
+            <div class="form-group">
+              <label for="name">Full Name</label>
+              <input type="text" id="name" placeholder="John Doe" required />
             </div>
-          </div>
-          
-          <h3 style="font-size: 2rem; margin-top: 1rem;">Shipping Address</h3>
-          <div class="grid-address">
+            <div class="form-group">
+              <label for="email">Email Address</label>
+              <input type="email" id="email" placeholder="john@example.com" required />
+            </div>
+            <div class="form-group">
+              <label for="phone">Phone Number</label>
+              <input type="tel" id="phone" placeholder="+91 1234567890" required />
+            </div>
+            <div class="form-group">
+              <label for="password">Password</label>
+              <input type="password" id="password" placeholder="••••••••" required />
+              <i class="fa-solid fa-eye password-toggle" id="togglePassword"></i>
+            </div>
+            
+            <h3 class="address-title">Shipping Address</h3>
+            
             <div class="form-group full-width">
               <label for="street">Street Address</label>
-              <input type="text" id="street" placeholder="123 Main St" required />
+              <input type="text" id="street" placeholder="123 Shopping Avenue" required />
             </div>
             <div class="form-group">
               <label for="city">City</label>
-              <input type="text" id="city" placeholder="City" required />
+              <input type="text" id="city" placeholder="Your City" required />
             </div>
             <div class="form-group">
               <label for="state">State</label>
-              <input type="text" id="state" placeholder="State" required />
+              <input type="text" id="state" placeholder="Your State" required />
             </div>
             <div class="form-group">
               <label for="zip">Zip Code</label>
-              <input type="text" id="zip" placeholder="123456" required />
+              <input type="text" id="zip" placeholder="Pin code" required />
             </div>
             <div class="form-group">
               <label for="country">Country</label>
-              <input type="text" id="country" placeholder="Country" required />
+              <input type="text" id="country" placeholder="Your Country" required />
             </div>
           </div>
 
-          <button type="submit" class="auth-btn">Register</button>
+          <button type="submit" class="auth-btn">Register Account</button>
         </form>
         <div class="auth-link">
-          Already have an account? <a href="login.html">Login Here</a>
+          Already a member? <a href="login.html">Login here</a>
         </div>
       </div>
     </main>

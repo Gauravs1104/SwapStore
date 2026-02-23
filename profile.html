@@ -7,60 +7,143 @@
     <link rel="stylesheet" href="style.css" />
     <title>My Profile - SwapStore</title>
     <style>
+      body {
+        background-color: #f8fafc;
+      }
+      .profile-section {
+        padding: 5rem 2rem;
+      }
       .profile-container {
-        max-width: 80rem;
-        margin: 5rem auto;
-        padding: 4rem;
-        background: var(--backgroundSecondary);
-        border-radius: 1rem;
-        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        max-width: 90rem;
+        margin: 0 auto;
+        background: #fff;
+        border-radius: 2rem;
+        box-shadow: 0 10px 25px rgba(0,0,0,0.05);
+        overflow: hidden;
+      }
+      .profile-banner {
+        height: 15rem;
+        background: linear-gradient(135deg, var(--main-color) 0%, #3b42cc 100%);
+        position: relative;
       }
       .profile-header {
         display: flex;
+        flex-direction: column;
         align-items: center;
-        gap: 3rem;
-        margin-bottom: 4rem;
-        border-bottom: 1px solid var(--borderColor);
-        padding-bottom: 2rem;
+        margin-top: -6rem;
+        padding: 0 4rem 3rem;
+        border-bottom: 1px solid #edf2f7;
+        text-align: center;
+      }
+      .profile-pic-container {
+        width: 13rem;
+        height: 13rem;
+        border-radius: 50%;
+        padding: 0.5rem;
+        background: #fff;
+        box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        margin-bottom: 2rem;
       }
       .profile-pic {
-        width: 12rem;
-        height: 12rem;
+        width: 100%;
+        height: 100%;
         border-radius: 50%;
         object-fit: cover;
-        border: 3px solid var(--main-color);
       }
-      .profile-info {
+      .profile-header h2 {
+        font-size: 3rem;
+        color: var(--buttonColor);
+        font-weight: 800;
+        margin-bottom: 0.5rem;
+      }
+      .profile-header p {
+        font-size: 1.6rem;
+        color: #718096;
+      }
+      .profile-body {
+        padding: 4rem;
+      }
+      .info-grid {
         display: grid;
-        grid-template-columns: 1fr 1fr;
+        grid-template-columns: repeat(2, 1fr);
         gap: 3rem;
       }
-      .info-group {
-        display: flex;
-        flex-direction: column;
-        gap: 0.5rem;
+      .info-card {
+        background: #f8fafc;
+        padding: 2rem;
+        border-radius: 1.5rem;
+        border: 1px solid #edf2f7;
+        transition: all 0.3s ease;
       }
-      .info-group label {
+      .info-card:hover {
+        border-color: var(--main-color);
+        background: #fff;
+        box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+      }
+      .info-card label {
+        display: block;
         font-weight: 700;
-        font-size: 1.4rem;
-        color: #666;
+        font-size: 1.3rem;
+        color: #a0aec0;
         text-transform: uppercase;
+        margin-bottom: 1rem;
+        letter-spacing: 0.05em;
       }
-      .info-group p {
+      .info-card p {
         font-size: 1.8rem;
-        color: var(--textColor);
-        background: #f9f9f9;
-        padding: 1rem;
-        border-radius: 0.5rem;
-        border: 1px solid var(--borderColor);
+        color: var(--buttonColor);
+        font-weight: 600;
+      }
+      .section-title {
+        grid-column: span 2;
+        font-size: 2.2rem;
+        font-weight: 800;
+        color: var(--buttonColor);
+        margin: 2rem 0 1rem;
+        display: flex;
+        align-items: center;
+        gap: 1.5rem;
+      }
+      .section-title::after {
+        content: '';
+        flex: 1;
+        height: 2px;
+        background: #edf2f7;
       }
       .full-width {
         grid-column: span 2;
       }
+      .logout-container {
+        margin-top: 4rem;
+        text-align: center;
+      }
+      .logout-btn {
+        padding: 1.4rem 4rem;
+        background: #fee2e2;
+        color: #dc2626;
+        border: none;
+        border-radius: 1.2rem;
+        font-size: 1.6rem;
+        font-weight: 700;
+        cursor: pointer;
+        transition: all 0.3s ease;
+      }
+      .logout-btn:hover {
+        background: #ef4444;
+        color: white;
+      }
+      @media (max-width: 600px) {
+        .info-grid {
+          grid-template-columns: 1fr;
+        }
+        .section-title, .full-width {
+          grid-column: span 1;
+        }
+      }
     </style>
   </head>
   <body>
-    <!-- Navbar -->
+    <!-- Navbar (same as other pages) -->
     <header class="section-navbar">
         <section class="top_txt">
           <div class="head container">
@@ -72,10 +155,10 @@
             </div>
           </div>
         </section>
-        <div class="container">
+        <div class="container" style="padding: 1.5rem 2.4rem;">
           <div class="navbar-brand">
             <a href="index.html">
-              <img src="/images/swap-store-high-resolution-logo-transparent.png" alt="logo" class="logo" width="80px" />
+              <img src="/images/swap-store-high-resolution-logo-transparent.png" alt="logo" class="logo" width="100px" />
             </a>
           </div>
           <nav class="navbar">
@@ -94,57 +177,66 @@
         </div>
       </header>
 
-    <main class="container">
+    <main class="profile-section">
       <div class="profile-container">
+        <div class="profile-banner"></div>
         <div class="profile-header">
-          <img src="/images/favicon-32x32.png" alt="Profile" class="profile-pic" id="userPic" />
-          <div>
-            <h2 id="userNameHeader" style="font-size: 3rem;">Loading...</h2>
-            <p id="userEmailHeader" style="font-size: 1.6rem; color: #666;">Loading...</p>
+          <div class="profile-pic-container">
+            <img src="/images/favicon-32x32.png" alt="Profile" class="profile-pic" id="userPic" />
           </div>
+          <h2 id="userNameHeader">Loading...</h2>
+          <p id="userEmailHeader">Loading...</p>
         </div>
 
-        <div class="profile-info">
-          <div class="info-group">
-            <label>Full Name</label>
-            <p id="profileName">--</p>
-          </div>
-          <div class="info-group">
-            <label>Email Address</label>
-            <p id="profileEmail">--</p>
-          </div>
-          <div class="info-group">
-            <label>Phone Number</label>
-            <p id="profilePhone">--</p>
-          </div>
-          <div class="info-group">
-            <label>Role</label>
-            <p id="profileRole">User</p>
+        <div class="profile-body">
+          <div class="info-grid">
+            <div class="section-title">Personal Information</div>
+            
+            <div class="info-card">
+              <label>Full Name</label>
+              <p id="profileName">--</p>
+            </div>
+            <div class="info-card">
+              <label>Email Address</label>
+              <p id="profileEmail">--</p>
+            </div>
+            <div class="info-card">
+              <label>Phone Number</label>
+              <p id="profilePhone">--</p>
+            </div>
+            <div class="info-card">
+              <label>Account Role</label>
+              <p id="profileRole">User</p>
+            </div>
+            
+            <div class="section-title">Shipping Details</div>
+
+            <div class="info-card full-width">
+              <label>Street Address</label>
+              <p id="profileStreet">--</p>
+            </div>
+            <div class="info-card">
+              <label>City</label>
+              <p id="profileCity">--</p>
+            </div>
+            <div class="info-card">
+              <label>State / Province</label>
+              <p id="profileState">--</p>
+            </div>
+            <div class="info-card">
+              <label>Zip / Postal Code</label>
+              <p id="profileZip">--</p>
+            </div>
+            <div class="info-card">
+              <label>Country</label>
+              <p id="profileCountry">--</p>
+            </div>
           </div>
           
-          <div class="full-width">
-            <h3 style="font-size: 2rem; margin: 2rem 0 1rem;">Shipping Address</h3>
-          </div>
-
-          <div class="info-group full-width">
-            <label>Street</label>
-            <p id="profileStreet">--</p>
-          </div>
-          <div class="info-group">
-            <label>City</label>
-            <p id="profileCity">--</p>
-          </div>
-          <div class="info-group">
-            <label>State</label>
-            <p id="profileState">--</p>
-          </div>
-          <div class="info-group">
-            <label>Zip Code</label>
-            <p id="profileZip">--</p>
-          </div>
-          <div class="info-group">
-            <label>Country</label>
-            <p id="profileCountry">--</p>
+          <div class="logout-container">
+            <button id="profileLogoutBtn" class="logout-btn">
+              <i class="fa-solid fa-right-from-bracket"></i> Sign Out
+            </button>
           </div>
         </div>
       </div>

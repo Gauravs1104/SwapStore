@@ -39,6 +39,15 @@ document.addEventListener('DOMContentLoaded', async () => {
 
     const userData = await response.json();
     displayProfile(userData);
+
+    // Add Logout Button listener
+    document.getElementById('profileLogoutBtn')?.addEventListener('click', (e) => {
+      e.preventDefault();
+      localStorage.removeItem('token');
+      localStorage.removeItem('user');
+      alert('Logged out successfully!');
+      window.location.href = 'index.html';
+    });
   } catch (error) {
     console.error('Detailed Profile Error:', error);
     if (error.message === 'Failed to fetch') {
