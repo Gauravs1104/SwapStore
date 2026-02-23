@@ -38,10 +38,11 @@ const handleContactSubmit = async (e) => {
   }
 };
 
-// Use a more reliable way to attach the listener
-const form = document.getElementById('contactForm');
-if (form) {
-  form.addEventListener('submit', handleContactSubmit);
-} else {
-  console.error('Contact form not found');
-}
+document.addEventListener('DOMContentLoaded', () => {
+  const form = document.getElementById('contactForm');
+  if (form) {
+    form.addEventListener('submit', handleContactSubmit);
+  } else {
+    console.error('Contact form not found');
+  }
+});
