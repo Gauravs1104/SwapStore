@@ -231,9 +231,18 @@
                 <label style="font-size: 1.4rem; font-weight: 700; color: #666; margin-bottom: 0.5rem; display: block;">Phone Number</label>
                 <input type="tel" id="editPhone" style="width: 100%; padding: 1.2rem; border-radius: 1rem; border: 2px solid #edf2f7; font-size: 1.6rem;" />
               </div>
-              <div class="form-group">
-                <label style="font-size: 1.4rem; font-weight: 700; color: #666; margin-bottom: 0.5rem; display: block;">Profile Pic URL</label>
-                <input type="text" id="editPic" style="width: 100%; padding: 1.2rem; border-radius: 1rem; border: 2px solid #edf2f7; font-size: 1.6rem;" placeholder="https://image-url.com" />
+              <div class="form-group full-width">
+                <label style="font-size: 1.4rem; font-weight: 700; color: #666; margin-bottom: 0.5rem; display: block;">Profile Picture</label>
+                <div style="display: flex; align-items: center; gap: 2rem; background: #f8fafc; padding: 1.5rem; border-radius: 1.5rem; border: 2px dashed #edf2f7;">
+                  <img id="editPicPreview" src="/images/favicon-32x32.png" style="width: 7rem; height: 7rem; border-radius: 50%; object-fit: cover; border: 2px solid #fff; box-shadow: 0 4px 10px rgba(0,0,0,0.1);" />
+                  <div style="flex: 1;">
+                    <label for="editPicFile" style="display: inline-block; padding: 0.8rem 2rem; background: var(--main-color); color: white; border-radius: 0.8rem; font-size: 1.4rem; font-weight: 700; cursor: pointer; margin-bottom: 0.5rem;">
+                      <i class="fa-solid fa-cloud-arrow-up"></i> Upload Image
+                    </label>
+                    <input type="file" id="editPicFile" accept="image/*" style="display: none;" />
+                    <p style="font-size: 1.2rem; color: #718096; margin: 0;">JPG, PNG or GIF. Max 200 KB.</p>
+                  </div>
+                </div>
               </div>
               
               <div class="section-title full-width">Shipping Address</div>

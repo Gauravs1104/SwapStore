@@ -70,19 +70,41 @@ function setupEditModal(user) {
   const editBtn = document.getElementById('editProfileBtn');
   const closeBtn = document.getElementById('closeModal');
   const form = document.getElementById('editProfileForm');
+  const picInput = document.getElementById('editPicFile');
+  const picPreview = document.getElementById('editPicPreview');
+  let base64Image = user.profilePic || '';
 
   editBtn.onclick = () => {
     modal.style.display = 'flex';
     // Pre-fill form
     document.getElementById('editName').value = user.name || '';
     document.getElementById('editPhone').value = user.phone || '';
-    document.getElementById('editPic').value = user.profilePic || '';
+    picPreview.src = user.profilePic || '/images/favicon-32x32.png';
+    base64Image = user.profilePic || '';
+    
     if (user.address) {
       document.getElementById('editStreet').value = user.address.street || '';
       document.getElementById('editCity').value = user.address.city || '';
       document.getElementById('editState').value = user.address.state || '';
       document.getElementById('editZip').value = user.address.zip || '';
       document.getElementById('editCountry').value = user.address.country || '';
+    }
+  };
+
+  // Image handling
+  picInput.onchange = (e) => {
+    const file = e.target.files[0];
+    if (file) {
+      if (file.size > 200 * 1024) {
+        showToast('Image size should be less than 200 KB', 'error');
+        return;
+      }
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        base64Image = reader.result;
+        picPreview.src = base64Image;
+      };
+      reader.readAsDataURL(file);
     }
   };
 
@@ -103,7 +125,7 @@ function setupEditModal(user) {
     const updatedData = {
       name: document.getElementById('editName').value,
       phone: document.getElementById('editPhone').value,
-      profilePic: document.getElementById('editPic').value,
+      profilePic: base64Image,
       address: {
         street: document.getElementById('editStreet').value,
         city: document.getElementById('editCity').value,
