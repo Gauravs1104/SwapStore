@@ -215,14 +215,69 @@ textarea:focus-visible {
 .top_txt {
   background-color: var(--buttonColor);
   color: var(--backgroundColor);
+  padding: 0.8rem 0;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+
+  & .head.container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 2.4rem;
+  }
 
   & .head_txt p {
-    font-size: 1.5rem;
+    font-size: 1.4rem;
+    font-weight: 500;
+    letter-spacing: 0.05rem;
+    color: #cbd5e0;
   }
 
   & .sing_in_up {
     display: flex;
-    gap: 3.2rem;
+    gap: 1.5rem;
+    align-items: center;
+
+    & a {
+      font-size: 1.3rem;
+      font-weight: 700;
+      letter-spacing: 0.1rem;
+      color: #fff;
+      padding: 0.6rem 1.8rem;
+      border-radius: 5rem;
+      transition: all 0.3s ease;
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      background: rgba(255, 255, 255, 0.05);
+      text-transform: uppercase;
+    }
+
+    & a:hover {
+      background: var(--main-color);
+      border-color: var(--main-color);
+      transform: translateY(-1px);
+      box-shadow: 0 4px 12px rgba(83, 91, 242, 0.3);
+    }
+
+    & a:first-child {
+      background: transparent;
+      border: none;
+      color: #cbd5e0;
+    }
+
+    & a:first-child:hover {
+      color: #fff;
+      background: rgba(255, 255, 255, 0.1);
+    }
+
+    & #logoutBtn {
+      background: #e53e3e;
+      border-color: #e53e3e;
+      color: white;
+    }
+
+    & #logoutBtn:hover {
+      background: #c53030;
+      box-shadow: 0 4px 12px rgba(229, 62, 62, 0.3);
+    }
   }
 }
 
