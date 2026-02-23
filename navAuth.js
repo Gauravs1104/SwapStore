@@ -1,3 +1,5 @@
+import { showToast } from "./showToast";
+
 document.addEventListener('DOMContentLoaded', () => {
   const authContainer = document.querySelector('.sing_in_up');
   const user = JSON.parse(localStorage.getItem('user'));
@@ -13,8 +15,10 @@ document.addEventListener('DOMContentLoaded', () => {
       e.preventDefault();
       localStorage.removeItem('token');
       localStorage.removeItem('user');
-      alert('Logged out successfully!');
-      window.location.reload();
+      showToast('Logged out successfully!');
+      setTimeout(() => {
+        window.location.reload();
+      }, 1000);
     });
   } else {
     // If user is NOT logged in

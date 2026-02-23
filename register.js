@@ -1,6 +1,8 @@
+import { showToast } from "./showToast";
+
 const API_URL = '/api/auth';
 
-// Password Visibility Toggle
+// ... (previous password toggle code)
 const togglePassword = document.querySelector('#togglePassword');
 const passwordField = document.querySelector('#password');
 
@@ -40,13 +42,15 @@ document.getElementById('registerForm').addEventListener('submit', async (e) => 
     const data = await response.json();
 
     if (response.ok) {
-      alert('Registration successful! Please login.');
-      window.location.href = 'login.html';
+      showToast('Registration successful! Please login.');
+      setTimeout(() => {
+        window.location.href = 'login.html';
+      }, 1500);
     } else {
-      alert(data.message || 'Registration failed');
+      showToast(data.message || 'Registration failed', 'error');
     }
   } catch (error) {
     console.error('Error during registration:', error);
-    alert('Something went wrong. Please try again.');
+    showToast('Something went wrong. Please try again.', 'error');
   }
 });

@@ -16,8 +16,8 @@ export const removeProdFromCart = (id) => {
   if (removeDiv) {
     removeDiv.remove();
 
-    //show toast when product added to the cart
-   showToast("delete", id);
+    //show toast when product removed from the cart
+   showToast("Product deleted successfully.");
   }
 
   // -----------------------------------------------------

@@ -1,6 +1,8 @@
+import { showToast } from "./showToast";
+
 const API_URL = '/api/auth';
 
-// Password Visibility Toggle
+// ... (previous password toggle code)
 const togglePassword = document.querySelector('#togglePassword');
 const passwordField = document.querySelector('#password');
 
@@ -31,14 +33,16 @@ document.getElementById('loginForm').addEventListener('submit', async (e) => {
     if (response.ok) {
       localStorage.setItem('token', data.token);
       localStorage.setItem('user', JSON.stringify(data.user));
-      alert('Login successful!');
-      window.location.href = 'index.html';
+      showToast('Login successful!');
+      setTimeout(() => {
+        window.location.href = 'index.html';
+      }, 1000);
     } else {
-      alert(data.message || 'Login failed');
+      showToast(data.message || 'Login failed', 'error');
     }
   } catch (error) {
     console.error('Error during login:', error);
-    alert('Something went wrong. Please try again.');
+    showToast('Something went wrong. Please try again.', 'error');
   }
 });
 
@@ -60,14 +64,16 @@ window.addEventListener('google-login', async (event) => {
     if (response.ok) {
       localStorage.setItem('token', data.token);
       localStorage.setItem('user', JSON.stringify(data.user));
-      alert('Google Login successful!');
-      window.location.href = 'index.html';
+      showToast('Google Login successful!');
+      setTimeout(() => {
+        window.location.href = 'index.html';
+      }, 1000);
     } else {
       console.error('Backend Google Login Error:', data);
-      alert('Google Login failed: ' + (data.message || 'Unknown error'));
+      showToast(data.message || 'Google Login failed', 'error');
     }
   } catch (error) {
     console.error('Network/Frontend Error during Google login:', error);
-    alert('Google Login failed. Please check if the server is running on port 5000.');
+    showToast('Google Login failed. Please check your connection.', 'error');
   }
 });
