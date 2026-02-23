@@ -180,7 +180,19 @@
             </div>
             <div class="form-group">
               <label for="phone">Phone Number</label>
-              <input type="tel" id="phone" placeholder="+91 1234567890" required />
+              <div class="phone-input-group" style="display: flex; gap: 1rem;">
+                <select id="countryCode" style="width: 10rem; padding: 1.4rem 1rem; border: 2px solid #edf2f7; border-radius: 1.2rem; background: #f8fafc; font-size: 1.5rem; font-weight: 600; color: var(--buttonColor); cursor: pointer; outline: none;">
+                  <option value="+91" selected>🇮🇳 +91</option>
+                  <option value="+1">🇺🇸 +1</option>
+                  <option value="+44">🇬🇧 +44</option>
+                  <option value="+61">🇦🇺 +61</option>
+                  <option value="+81">🇯🇵 +81</option>
+                  <option value="+971">🇦🇪 +971</option>
+                  <option value="+49">🇩🇪 +49</option>
+                  <option value="+33">🇫🇷 +33</option>
+                </select>
+                <input type="tel" id="phone" placeholder="1234567890" required style="flex: 1;" />
+              </div>
             </div>
             <div class="form-group">
               <label for="password">Password</label>

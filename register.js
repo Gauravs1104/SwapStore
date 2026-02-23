@@ -16,10 +16,13 @@ togglePassword.addEventListener('click', function () {
 document.getElementById('registerForm').addEventListener('submit', async (e) => {
   e.preventDefault();
 
+  const phoneCode = document.getElementById('countryCode').value;
+  const phoneNumber = document.getElementById('phone').value;
+
   const formData = {
     name: document.getElementById('name').value,
     email: document.getElementById('email').value,
-    phone: document.getElementById('phone').value,
+    phone: `${phoneCode} ${phoneNumber}`,
     password: document.getElementById('password').value,
     address: {
       street: document.getElementById('street').value,
