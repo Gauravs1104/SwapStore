@@ -42,7 +42,7 @@ const footerHTML = `
     </div>
     <div class="f-design">
       <div class="f-design-txt">
-        <p>Design and Code by Swapnil Tiwari</p>
+        <p>Gaurav Raj and all rights reserved</p>
       </div>
     </div>
   </footer>`;
